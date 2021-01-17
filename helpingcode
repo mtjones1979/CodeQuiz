@@ -1,0 +1,41 @@
+     function renderQuestions(questionIndex) {
+        questionQuiz.innerHTML = "";
+        ulCreate.innerHTML = "";
+        for (var i = 0; i < myQuestions.length; i++) {
+            var userQuestion = myQuestions[questionIndex].question;
+            var userOptions = myQuestions[questionIndex].options;
+            questionQuiz.textContent = userQuestion;
+        }
+        userOptions.forEach(function(newChoice){
+            var a = document.createElement("li");
+            a.textContent = newChoice;
+            questionQuiz.appendChild(ulCreate);
+            ulCreate.appendChild(a);
+            a.addEventListener("click", (compare));
+        })
+    }
+
+    function compare(event) {
+        var element = event.target;
+
+        if (element.matches("li")){
+            var newDiv = document.createElement("div");
+            newDiv.setAttribute("id", "newDiv");
+            if(element.textContent == question[questionIndex].answer){
+                score ++;
+                newDiv.textContent = "Correct! This answer is: " + myQuestions[questionIndex].answer;
+          } else {
+                timeLeft = timeLeft - penalty;
+                newDiv.textContent = "Wrong! Try Again!!!";
+            }
+        }
+        questionIndex++;
+
+        if (questionIndex >= myQuestions.length) {
+            finished();
+            newDiv.textContent ="End of Quiz!" + "" + "You got " + score + "/" + myQuestions.length;
+        } else {
+            render(questionIndex);
+        }
+        questionQuiz.appendChild(newDiv);
+    }
