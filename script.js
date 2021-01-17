@@ -3,16 +3,19 @@
 var questionQuiz = document.querySelector("#questionQuiz");
 var choices = document.querySelector("#choices");
 var startQuiz = document.querySelector("#startQuiz");
+var timer = document.querySelector("#timer");
+
 // set additonal variables that I think I'll need
 var score = 0;
 var questionIndex = 0;
 var timeLeft = 60;
 var penalty = 10;
-
-
+var timeInterval = 0;
+var ulCreate = document.createElement("ul");
+ 
 
 // will start with questions taken from bestlifeonline.com using array and objects
-var questions = [
+var myQuestions = [
     {
         question: "What was the first toy to be advertised on TV?",
         options: ["Barbie", "Mr Potato Head", "Slinky", "Pokemon"],
@@ -40,5 +43,28 @@ var questions = [
     },
 ];
 
-// have to set up function to show quesitons
-    
+// have to set up functions to show quesitons and start timer
+ startQuiz.addEventListener("click", function(){
+     if (timeInterval === 0) {
+         timeInterval = setInterval(function(){
+             timeLeft--;
+             timer.textContent = "Timer: " + timeLeft;
+             if (timeLeft <=0) {
+                clearInterval(timeInterval);
+                finished();
+                timer.textContent = "Time's up!";
+             }
+         }, 1000);
+        }
+        render(questionIndex);
+    });
+
+     function render(questionIndex) {
+        questionQuiz.innerHTML = "";
+        ulCreate.innerHTML = "";
+        for (var i = 0; i < myQuestions.length; i++) {
+            var userQuestion = myQuestions[questionIndex].question;
+            var userOptions = myQuestions[quesitonIndex].options;
+            questionQuiz.textContent = userQuestion;
+        }
+     }    

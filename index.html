@@ -5,22 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Quiz</title>
     
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 </head>
 <body>
-    
-    <br>
-    <br>
-    <div class="container">
-      <div class="bs white text-center text-dark">
-        <div id = "questionQuiz">
+  <br>
+  <br>
+    <div class="container"> 
+      <a href="highscore.html">View Highscores</a>
+      <div id ="timer" style = "text-align:right;"></div>
+        <div class="bs white text-center text-dark">
           <h1>Random Quiz Challenge</h1>
+          <hr>
           <p>Try answering the following questions within the 60 seconds time limit. Keep in mind that 
-             incorrect answers will penalize your score time by 10 seconds!!</p>
-          <ol id = "choices"></ol>
+            incorrect answers will penalize your score time by 10 seconds!!</p>
           <button id ="startQuiz">Start Quiz</button>
+          <div id = "questionQuiz"></div>
+          <ul id = "choices"></ul>
         </div>
       </div>
     </div>
