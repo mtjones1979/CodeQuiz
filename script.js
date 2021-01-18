@@ -71,13 +71,14 @@ startQuiz.addEventListener("click", function(){
             timer.textContent = "Timer: " + timeLeft;
         if (timeLeft <=0) {
             clearInterval(timeInterval);
+            allDone();
            }
        }, 1000);
     }
        renderQuestions();
     
        console.log(startQuiz);
-});
+})
   
  function renderQuestions (){
     questionQuiz.innerHTML = "";
@@ -95,24 +96,59 @@ startQuiz.addEventListener("click", function(){
  }
 
   function checkAnswer(answer) {
+      
         // var newDiv = document.createElement("div");
         // newDiv.setAttribute("id", "newDiv");
 
      if (answer == myQuestions[questionIndex].cAnswer) {
+        // answer.textContent = "Correct!";
         questionIndex++;
         renderQuestions();
-        // newDiv.textContent = "Correct! The answer is " + myQuestions[questionIndex].cAnswer;
+    
      } else {
-         timeLeft = timeLeft - penalty;
-        //  newDiv.textContent = "Wrong! Better luck next time.";
+        timeLeft = timeLeft - penalty;
+        
+        // answer.textContent = "Wrong!";
          
          console.log(checkAnswer);
     }
-   
+        
+
+    if (questionIndex >= myQuestions.length) {
+        allDone();
+      }   else {
+         renderQuestions(questionIndex);
+     }
+}
+
+    function allDone() {
+        choiceA.innerHTML = "";
+        choiceB.innerHTML = "";
+        choiceC.innerHTML = "";
+        choiceD.innerHTML = "";
+        question.innerHTML = "";
+        timer.innerHTML = "";
+        
+        var createH1 = document.createElement("h1");
+        createH1.setAttribute("id", "createH1");
+        createH1.textContent = "All Done!";
+        questionQuiz.appendChild(createH1);
+
+         var createP = document.createElement("p");
+         createP.setAttribute("id", "createP");
+         questionQuiz.appendChild(createP);
+
+        if (timeLeft >= 0) {
+            var timeRemaining = timeLeft;
+            var createP2 = document.createElement("p");
+            clearInterval(timeInterval);
+            createP.textContent = "Your final score is " + timeRemaining;
+
+            questionQuiz.appendChild(createP2);
+        }
+    };
+
     
- }
-
-
 
 
 
