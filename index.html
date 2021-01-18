@@ -16,24 +16,23 @@
     <div class="container"> 
       <a href="highscore.html">View Highscores</a>
       <div id ="timer" style = "text-align:right;"></div>
-        <div class="bs white text-center text-dark">
-          <h1>Random Quiz Challenge</h1>
+        <div id = "questionQuiz" class="bs white text-center text-dark">
+         <h1>Random Quiz Challenge</h1>
           <hr>
           <p>Try answering the following questions within the 60 seconds time limit. Keep in mind that 
             incorrect answers will penalize your score time by 10 seconds!!</p>
           <button id ="startQuiz">Start Quiz</button>
           <hr>
-          <div id = "questionQuiz"></div>
-            <div id = "question"></div>
-            <div id= "choices">
-              <div class="choice" id="A" onclick="checkAnswer('A')"></div>
-              <div class="choice" id="B" onclick="checkAnswer('B')"></div>
-              <div class="choice" id="C" onclick="checkAnswer('C')"></div>
-              <div class="choice" id="D" onclick="checkAnswer('D')"></div>
-            </div>
-          
         </div>
-      </div>
+        
+        <div id = "question" class= "bs text-center text-dark "></div>
+            <div id= "choices" class= "bs white text-center text-dark">
+              <button class="choice hide" id="A" onclick="checkAnswer('A')"></button>
+              <button class="choice hide" id="B" onclick="checkAnswer('B')"></button>
+              <button class="choice hide" id="C" onclick="checkAnswer('C')"></button>
+              <button class="choice hide" id="D" onclick="checkAnswer('D')"></button>
+            </div>
+       
     </div>
   <script src="script.js"></script>  
 </body>

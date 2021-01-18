@@ -10,7 +10,7 @@ var choiceB = document.getElementById("B");
 var choiceC = document.getElementById("C");
 var choiceD = document.getElementById("D");
 // set additonal variables that I think I'll need
-var score = 0;
+var count = 0;
 var questionIndex = 0;
 var timeLeft = 60;
 var penalty = 10;
@@ -45,7 +45,7 @@ var myQuestions = [
         cAnswer: "D"
     },
     {
-        quesiton: "What do you call a group of toads?",
+        question: "What do you call a group of toads?",
         choiceA: "a gaggle",
         choiceB: "a rope",
         choiceC: "a knot",
@@ -64,18 +64,24 @@ var myQuestions = [
 
 // have to set up functions to show quesitons and start timer
 startQuiz.addEventListener("click", function(){
+
     if (timeInterval === 0) {
         timeInterval = setInterval(function(){
             timeLeft--;
             timer.textContent = "Timer: " + timeLeft;
-           }, 1000);
-       }
+        if (timeLeft <=0) {
+            clearInterval(timeInterval);
+           }
+       }, 1000);
+    }
        renderQuestions();
+    
        console.log(startQuiz);
 });
   
  function renderQuestions (){
-
+    questionQuiz.innerHTML = "";
+    ulCreate.innerHTML = "";
     for (var i = 0; i < myQuestions.length; i++) {
     let q = myQuestions[questionIndex];
      question.innerHTML = "<p>" + q.question + "</p>";
@@ -83,21 +89,27 @@ startQuiz.addEventListener("click", function(){
      choiceB.innerHTML = q.choiceB;
      choiceC.innerHTML = q.choiceC;
      choiceD.innerHTML = q.choiceD; 
+     
      console.log(renderQuestions);
     }
  }
+
   function checkAnswer(answer) {
-        var newDiv = document.createElement("div");
-        newDiv.setAttribute("id", "newDiv");
+        // var newDiv = document.createElement("div");
+        // newDiv.setAttribute("id", "newDiv");
 
      if (answer == myQuestions[questionIndex].cAnswer) {
-         score++;
-         newDiv.textContent = "Correct! The answer is " + myQuestions[questionIndex].cAnswer;
+        questionIndex++;
+        renderQuestions();
+        // newDiv.textContent = "Correct! The answer is " + myQuestions[questionIndex].cAnswer;
      } else {
          timeLeft = timeLeft - penalty;
-         newDiv.textContent = "Wrong! Better luck next time.";
-
-     }
+        //  newDiv.textContent = "Wrong! Better luck next time.";
+         
+         console.log(checkAnswer);
+    }
+   
+    
  }
 
 
