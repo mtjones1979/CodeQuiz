@@ -1,7 +1,7 @@
 // start code
 // attached JS to HTML id
 var questionQuiz = document.querySelector("#questionQuiz");
-var choices = document.getElementById("#choices");
+var choices = document.querySelector("#choices");
 var startQuiz = document.querySelector("#startQuiz");
 var timer = document.querySelector("#timer");
 var question = document.getElementById("question");
@@ -10,13 +10,13 @@ var choiceB = document.getElementById("B");
 var choiceC = document.getElementById("C");
 var choiceD = document.getElementById("D");
 // set additonal variables that I think I'll need
-var count = 0;
+var count =  0;
 var questionIndex = 0;
 var timeLeft = 60;
 var penalty = 10;
 var timeInterval = 0;
 var ulCreate = document.createElement("ul");
-// var lastQuestion = myQuestions.length -1;
+
 
 // will start with questions taken from bestlifeonline.com using array and objects
 var myQuestions = [
@@ -62,91 +62,99 @@ var myQuestions = [
     },
 ];
 
+function init() {
+    renderQuestions();
+    checkAnswer();
+    allDone();
+}
 // have to set up functions to show quesitons and start timer
 startQuiz.addEventListener("click", function(){
-
+   
     if (timeInterval === 0) {
         timeInterval = setInterval(function(){
-            timeLeft--;
-            timer.textContent = "Timer: " + timeLeft;
+         timeLeft--;
+        timer.textContent = "Timer: " + timeLeft;
         if (timeLeft <=0) {
             clearInterval(timeInterval);
             allDone();
-           }
-       }, 1000);
+            }
+        }, 1000);
     }
        renderQuestions();
-    
-       console.log(startQuiz);
+    //    console.log(startQuiz);
 })
   
- function renderQuestions (){
-    questionQuiz.innerHTML = "";
-    ulCreate.innerHTML = "";
-    for (var i = 0; i < myQuestions.length; i++) {
+function renderQuestions (checkAnswer){
+        questionQuiz.innerHTML = "";
+        // ulCreate.innerHTML = "";
+        
+    // for (var i = 0; i < myQuestions.length; i++) {
     let q = myQuestions[questionIndex];
-     question.innerHTML = "<p>" + q.question + "</p>";
-     choiceA.innerHTML = q.choiceA;
-     choiceB.innerHTML = q.choiceB;
-     choiceC.innerHTML = q.choiceC;
-     choiceD.innerHTML = q.choiceD; 
+        question.innerHTML = "<p>" + q.question + "</p>";
+        choiceA.innerHTML = q.choiceA;
+        choiceB.innerHTML = q.choiceB;
+        choiceC.innerHTML = q.choiceC;
+        choiceD.innerHTML = q.choiceD; 
      
-     console.log(renderQuestions);
-    }
- }
-
-  function checkAnswer(answer) {
-      
-        // var newDiv = document.createElement("div");
-        // newDiv.setAttribute("id", "newDiv");
-
-     if (answer == myQuestions[questionIndex].cAnswer) {
-        // answer.textContent = "Correct!";
-        questionIndex++;
-        renderQuestions();
-    
-     } else {
-        timeLeft = timeLeft - penalty;
-        
-        // answer.textContent = "Wrong!";
-         
-         console.log(checkAnswer);
-    }
-        
-
-    if (questionIndex >= myQuestions.length) {
-        allDone();
-      }   else {
-         renderQuestions(questionIndex);
-     }
+    //  console.log(renderQuestions);
+    // }
 }
 
-    function allDone() {
-        choiceA.innerHTML = "";
-        choiceB.innerHTML = "";
-        choiceC.innerHTML = "";
-        choiceD.innerHTML = "";
+// was able to get the toggling through questions
+function checkAnswer(answer) {
+    
+
+    var createDiv = document.createElement("div");
+        createDiv.setAttribute("id", "createDiv");
+
+    if (answer === myQuestions[questionIndex].cAnswer) {
+        var lastQuestion = myQuestions.length -1;
+            
+            createDiv.textContent = "Correct!";
+            questionIndex++;
+        } else {
+            timeLeft = timeLeft - penalty;
+            createDiv.textContent = "Wrong!";
+            renderQuestions(allDone);
+            console.log(checkAnswer);
+        }
+        if (lastQuestion >= myQuestions.length) {
+               
+            allDone();
+          
+            
+        } else {
+        renderQuestions(questionIndex);
+    }       console.log(lastQuestion);
+            questionQuiz.appendChild(createDiv);
+            
+}
+        //All done to appear once the time is up or all questions are answered - can't get to work  
+function allDone(checkAnswer) {
         question.innerHTML = "";
+        questionQuiz.innerHTML = "";
         timer.innerHTML = "";
-        
+        choices.innerHTML = "";
+
         var createH1 = document.createElement("h1");
         createH1.setAttribute("id", "createH1");
         createH1.textContent = "All Done!";
         questionQuiz.appendChild(createH1);
 
-         var createP = document.createElement("p");
-         createP.setAttribute("id", "createP");
-         questionQuiz.appendChild(createP);
+        var createP = document.createElement("p");
+        createP.setAttribute("id", "createP");
+        questionQuiz.appendChild(createP);
 
-        if (timeLeft >= 0) {
-            var timeRemaining = timeLeft;
-            var createP2 = document.createElement("p");
-            clearInterval(timeInterval);
-            createP.textContent = "Your final score is " + timeRemaining;
-
-            questionQuiz.appendChild(createP2);
-        }
-    };
+    if (timeLeft <= 0) {
+        var timeRemaining = timeLeft;
+        var createP2 = document.createElement("p");
+        createP2.setAttribute("id", "createP2");
+        clearInterval();
+        createP.textContent = "Your final score is " + timeRemaining;
+        
+        questionQuiz.appendChild(createP2);
+    }
+}
 
     
 
