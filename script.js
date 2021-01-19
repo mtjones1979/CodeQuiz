@@ -10,7 +10,8 @@ var choiceB = document.getElementById("B");
 var choiceC = document.getElementById("C");
 var choiceD = document.getElementById("D");
 // set additonal variables that I think I'll need
-var count =  0;
+var createDiv = document.createElement("div");
+       
 var questionIndex = 0;
 var timeLeft = 60;
 var penalty = 10;
@@ -58,84 +59,88 @@ var myQuestions = [
         choiceB: "37",
         choiceC: "12",
         choiceD: "95",
-        cAnswer: "12"
+        cAnswer: "C",
     },
 ];
 
 function init() {
+    startQuiz();
     renderQuestions();
     checkAnswer();
     allDone();
 }
-// have to set up functions to show quesitons and start timer
+// set up eventListener to start timer, shows timer / stops time
 startQuiz.addEventListener("click", function(){
    
     if (timeInterval === 0) {
         timeInterval = setInterval(function(){
-         timeLeft--;
+        timeLeft--;
         timer.textContent = "Timer: " + timeLeft;
-        if (timeLeft <=0) {
+            if (timeLeft <=0) {
             clearInterval(timeInterval);
             allDone();
+            timer.textContent = "Time's Up!";
             }
         }, 1000);
     }
        renderQuestions();
-    //    console.log(startQuiz);
+    console.log(startQuiz);
 })
   
 function renderQuestions (checkAnswer){
         questionQuiz.innerHTML = "";
         // ulCreate.innerHTML = "";
         
-    // for (var i = 0; i < myQuestions.length; i++) {
+ for (var i = 0; i < myQuestions.length; i++) {
     let q = myQuestions[questionIndex];
         question.innerHTML = "<p>" + q.question + "</p>";
         choiceA.innerHTML = q.choiceA;
         choiceB.innerHTML = q.choiceB;
         choiceC.innerHTML = q.choiceC;
         choiceD.innerHTML = q.choiceD; 
-     
-    //  console.log(renderQuestions);
-    // }
+    
+      console.log(renderQuestions);
+ }
 }
 
-// was able to get the toggling through questions
+// was able to get the toggling through questions but won't stop when questions are finished
 function checkAnswer(answer) {
-    
-
-    var createDiv = document.createElement("div");
         createDiv.setAttribute("id", "createDiv");
 
     if (answer === myQuestions[questionIndex].cAnswer) {
-        var lastQuestion = myQuestions.length -1;
-            
+       
             createDiv.textContent = "Correct!";
+        
             questionIndex++;
+        
         } else {
             timeLeft = timeLeft - penalty;
             createDiv.textContent = "Wrong!";
-            renderQuestions(allDone);
+            
+            renderQuestions();
             console.log(checkAnswer);
         }
-        if (lastQuestion >= myQuestions.length) {
-               
-            allDone();
-          
+        var lastQuestion = myQuestions.length -1;
+        if (questionIndex >= myQuestions.length) {
+           allDone();
+           
+        
+            } else {
+           renderQuestions();
+           }   
+            console.log(lastQuestion);
+         questionQuiz.appendChild(createDiv);
             
-        } else {
-        renderQuestions(questionIndex);
-    }       console.log(lastQuestion);
-            questionQuiz.appendChild(createDiv);
-            
-}
-        //All done to appear once the time is up or all questions are answered - can't get to work  
+} 
+//All done to appear once the time is up or all questions are answered - can't get to work  
 function allDone(checkAnswer) {
+        //clears data off of page to show All DONE 
         question.innerHTML = "";
         questionQuiz.innerHTML = "";
         timer.innerHTML = "";
         choices.innerHTML = "";
-
+        createDiv.innerHTML = "";
+    // took me forever to find out how to create Element on page
         var createH1 = document.createElement("h1");
         createH1.setAttribute("id", "createH1");
         createH1.textContent = "All Done!";
@@ -145,13 +150,12 @@ function allDone(checkAnswer) {
         createP.setAttribute("id", "createP");
         questionQuiz.appendChild(createP);
 
-    if (timeLeft <= 0) {
+    if (timeLeft >= 0) {
         var timeRemaining = timeLeft;
         var createP2 = document.createElement("p");
         createP2.setAttribute("id", "createP2");
-        clearInterval();
-        createP.textContent = "Your final score is " + timeRemaining;
-        
+        clearInterval(timeInterval);
+        createP.textContent = "Your final score is: " + timeRemaining;
         questionQuiz.appendChild(createP2);
     }
 }
