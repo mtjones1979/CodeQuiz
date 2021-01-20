@@ -25,7 +25,7 @@ THEN I can save my initials and my score
 ```
 
 ## Link
-<a href="https://mtjones1979.github.io/Password-Generator">Click</a>
+<a href="https://mtjones1979.github.io/CodeQuiz/">Click</a>
 
 ## Resources
 <li>Google</li>

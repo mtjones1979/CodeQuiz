@@ -11,13 +11,10 @@ var choiceC = document.getElementById("C");
 var choiceD = document.getElementById("D");
 // set additonal variables that I think I'll need
 var createDiv = document.createElement("div");
-       
 var questionIndex = 0;
 var timeLeft = 60;
 var penalty = 10;
 var timeInterval = 0;
-var ulCreate = document.createElement("ul");
-
 
 // will start with questions taken from bestlifeonline.com using array and objects
 var myQuestions = [
@@ -62,7 +59,7 @@ var myQuestions = [
         cAnswer: "C",
     },
 ];
-
+// inputed to make sure it runs well
 function init() {
     startQuiz();
     renderQuestions();
@@ -89,9 +86,8 @@ startQuiz.addEventListener("click", function(){
   
 function renderQuestions (checkAnswer){
         questionQuiz.innerHTML = "";
-        // ulCreate.innerHTML = "";
-        
- for (var i = 0; i < myQuestions.length; i++) {
+
+for (var i = 0; i < myQuestions.length; i++) {
     let q = myQuestions[questionIndex];
         question.innerHTML = "<p>" + q.question + "</p>";
         choiceA.innerHTML = q.choiceA;
@@ -149,7 +145,8 @@ function allDone(checkAnswer) {
         var createP = document.createElement("p");
         createP.setAttribute("id", "createP");
         questionQuiz.appendChild(createP);
-
+        
+// if else for final score
     if (timeLeft >= 0) {
         var timeRemaining = timeLeft;
         var createP2 = document.createElement("p");
