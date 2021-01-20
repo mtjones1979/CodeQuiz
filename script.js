@@ -134,13 +134,13 @@ function checkAnswer(answer) {
 } 
 //All done to appear once the time is up or all questions are answered - can't get to work  
 function allDone(checkAnswer) {
-        //clears data off of page to show All DONE 
+    //clears data off of page to show All DONE 
         question.innerHTML = "";
         questionQuiz.innerHTML = "";
         timer.innerHTML = "";
         choices.innerHTML = "";
         createDiv.innerHTML = "";
-    // took me forever to find out how to create Element on page
+    // took me forever to find out how to create Element on page thanks W3 Schools
         var createH1 = document.createElement("h1");
         createH1.setAttribute("id", "createH1");
         createH1.textContent = "All Done!";
@@ -158,7 +158,31 @@ function allDone(checkAnswer) {
         createP.textContent = "Your final score is: " + timeRemaining;
         questionQuiz.appendChild(createP2);
     }
+// created label for initials with input block and submit button but ran out of time to figure out how to save to other page highscore.html
+    var createLabel = document.createElement("label");
+    createLabel.setAttribute("id", "createLabel");
+    createLabel.textContent = "Enter your Initials: ";
+
+    questionQuiz.appendChild(createLabel);
+
+    var createInput = document.createElement("input");
+    createInput.setAttribute("type", "text");
+    createInput.setAttribute("id", "initials");
+    createInput.textContent = "";
+
+    questionQuiz.appendChild(createInput);
+
+    var createSubmit = document.createElement("button");
+    createSubmit.setAttribute("type", "submit");
+    createSubmit.setAttribute("id", "Submit");
+    createSubmit.textContent = "Submit";
+    
+    questionQuiz.appendChild(createSubmit);
+
 }
+
+
+
 
     
 
